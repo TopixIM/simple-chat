@@ -6,7 +6,7 @@ io.sockets.on 'connection', (ws) ->
 
   ws.on 'post', (data) ->
     try
-      console.log 'transfering data', data
+      # console.log 'transfering data', data
       if data.text.length > 1
         data.text = data.text[..60]
         io.sockets.emit 'post', data

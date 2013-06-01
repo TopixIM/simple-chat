@@ -15,11 +15,14 @@ name = localStorage.getItem('name') or 'anonymous' # --!
 monitor = (event) ->
   text = q('#input').value[..60]
 
-  ws.emit 'post', {text, stamp, name}
+  data = {text, stamp, name}
 
   if event? and (event.keyCode is 13)
     q('#input').value = ''
     stamp = new_time()
+    data.finish = yes
+
+  ws.emit 'post', data
 
 q('#input').focus()
 q('#input').oninput = monitor
