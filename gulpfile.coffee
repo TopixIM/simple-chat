@@ -17,21 +17,25 @@ prefixer = require 'gulp-autoprefixer'
 cssmin = require 'gulp-cssmin'
 rimraf = require 'gulp-rimraf'
 transform = require 'vinyl-transform'
+wait = require 'gulp-wait'
 
 project = 'jiyinyiyong/simple-chat/index.html'
 dev = yes
+libraries = [
+  'react'
+  'ws-json-browser'
+]
 
 gulp.task 'folder', ->
   filetree.make '.',
     coffee:
       'main.coffee': ''
     css:
-      'style.css': ''
+      'main.css': ''
     cirru:
       'index.cirru': ''
     'README.md': ''
     build: {}
-    js: {}
 
 gulp.task 'watch', ->
   reloader.listen()
@@ -44,30 +48,34 @@ gulp.task 'watch', ->
   .pipe gulp.dest('./')
   .pipe reloader(project)
 
-  gulp
-  .src 'coffee/**/*.coffee'
-  .pipe watch()
-  .pipe plumber()
-  .pipe (coffee bare: yes)
-  .pipe (gulp.dest 'build/js/')
+  watch glob: 'coffee/**/*.coffee', (files) ->
+    files
+    .pipe plumber()
+    .pipe (coffee bare: yes)
+    .pipe (gulp.dest 'build/js/')
 
   watch glob: 'build/js/**/*.js', (files) ->
     gulp
     .src './build/js/main.js'
     .pipe plumber()
     .pipe transform (filename) ->
-      b = browserify filename
-      b.external 'react'
+      b = browserify filename, debug: yes
+      b.external library for library in libraries
       b.bundle()
     .pipe gulp.dest('build/')
     .pipe reloader(project)
     return files
 
+  watch ['server.coffee', 'src/**/*.coffee'], (files) ->
+    files
+    .pipe wait(800)
+    .pipe reloader(project)
+
 gulp.task 'js', ->
-  b = browserify debug: no
+  b = browserify debug: dev
   b.add './build/js/main'
-  b.external 'react'
-  .bundle()
+  b.external library for library in libraries
+  b.bundle()
   .pipe source('main.js')
   .pipe gulp.dest('build/')
 
@@ -86,8 +94,8 @@ gulp.task 'html', ->
 gulp.task 'jsmin', ->
   b = browserify debug: no
   b.add './build/js/main'
-  b.external 'react'
-  .bundle()
+  b.external library for library in libraries
+  b.bundle()
   .pipe source('main.min.js')
   .pipe buffer()
   .pipe uglify()
@@ -95,7 +103,7 @@ gulp.task 'jsmin', ->
 
 gulp.task 'vendor', ->
   b = browserify debug: no
-  b.require 'react'
+  b.require library for library in libraries
   b.bundle()
   .pipe source('vendor.min.js')
   .pipe buffer()
@@ -110,7 +118,7 @@ gulp.task 'prefixer', ->
 
 gulp.task 'cssmin', ->
   gulp
-  .src 'build/css/index.css'
+  .src 'build/css/main.css'
   .pipe cssmin()
   .pipe rename(suffix: '.min')
   .pipe gulp.dest('dist/')

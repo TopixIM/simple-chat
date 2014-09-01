@@ -1,0 +1,13 @@
+
+.user-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80px;
+}
+
+.user-panel .user-avatar {
+    width: 60px;
+    height: 60px;
+    background-size: cover;
+}
