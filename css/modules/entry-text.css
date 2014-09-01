@@ -1,0 +1,9 @@
+
+.entry-text {
+    color: rgb(176, 176, 255);
+    cursor: pointer;
+}
+
+.entry-text:hover {
+    color: rgb(143, 143, 255);
+}

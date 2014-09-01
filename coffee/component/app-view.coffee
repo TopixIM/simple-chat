@@ -6,14 +6,18 @@ $$ = require '../utils/helper'
 TeamComponent = require './team-view'
 TeamsListComponent = require './teams-list'
 UserPanelComponent = require './user-panel'
+LoginViewComponent = require './login-view'
 
 module.exports = React.createClass
   displayName: 'app-view'
 
   render: ->
-    $.div
-      className: 'app-view'
-      $$.if @props.data.teamId?,
-        => TeamComponent({})
-        => TeamsListComponent({})
-      UserPanelComponent(data: @props.data.user)
+    if @props.data.user?
+      $.div
+        className: 'app-view'
+        $$.if @props.data.teamId?,
+          => TeamComponent({})
+          => TeamsListComponent({})
+        UserPanelComponent(data: @props.data.user)
+    else
+      LoginViewComponent({})

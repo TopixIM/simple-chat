@@ -1,31 +1,30 @@
 
 Dispatcher = require './utils/dispatcher'
 
-module.exports = class Store extends Dispatcher
-  constructor: ->
-    @initData()
-    super
+module.exports = store = new Dispatcher
+client = require './resource/socket'
 
-  initData: ->
-    @data =
-      teams: []
-      rooms: []
-      users: []
-      messages: []
-      user:
-        profile:
-          avatar: './images/user.png'
-        teamIds: []
-      state:
-        teamId: undefined
-        roomId: undefined
-        contactId: undefined
+store.data =
+  teams: []
+  rooms: []
+  users: []
+  messages: []
+  user: undefined
+  state:
+    teamId: undefined
+    roomId: undefined
+    contactId: undefined
 
-  getData: ->
-    @data
+client.onload (ws) ->
+  ws.on 'user', (data) ->
+    store.data.user = data
+    store.emit 'user'
 
-  getState: ->
-    @data.state
+store.getData = ->
+  @data
 
-  getUser: ->
-    @data.user
+store.getState = ->
+  @data.state
+
+store.getUser = ->
+  @data.user

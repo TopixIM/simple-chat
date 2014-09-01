@@ -1,0 +1,18 @@
+
+.button {
+    display: inline-block;
+    background: rgb(195, 132, 253);
+    color: white;
+    padding: 7px 7px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.button:hover {
+    background: rgb(149, 115, 250);
+}
+
+.button.be-large {
+    width: 100%;
+}
