@@ -5,4 +5,6 @@ node_modules/
 build/
 dist/
 
+src/*.json
+
 index.html

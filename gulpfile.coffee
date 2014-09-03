@@ -48,13 +48,13 @@ gulp.task 'watch', ->
   .pipe gulp.dest('./')
   .pipe reloader(project)
 
-  watch glob: 'coffee/**/*.coffee', (files) ->
+  watch glob: 'coffee/**/*.coffee', emitOnGlob: no, (files) ->
     files
     .pipe plumber()
     .pipe (coffee bare: yes)
     .pipe (gulp.dest 'build/js/')
 
-  watch glob: 'build/js/**/*.js', (files) ->
+  watch glob: 'build/js/**/*.js', emitOnGlob: no, (files) ->
     gulp
     .src './build/js/main.js'
     .pipe plumber()
@@ -66,7 +66,7 @@ gulp.task 'watch', ->
     .pipe reloader(project)
     return files
 
-  watch ['server.coffee', 'src/**/*.coffee'], (files) ->
+  watch glob: ['server.coffee', 'src/**/*.coffee'], emitOnGlob: no, (files) ->
     files
     .pipe wait(800)
     .pipe reloader(project)

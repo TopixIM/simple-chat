@@ -5,5 +5,10 @@ client = require 'ws-json-browser'
 AppViewComponent = require './component/app-view'
 store = require './store'
 
-React.renderComponent AppViewComponent(data: store.getData()),
-  document.body
+renderPage = ->
+  React.renderComponent AppViewComponent(data: store.getData()),
+    document.body
+
+store.addChangeListener renderPage
+
+renderPage()

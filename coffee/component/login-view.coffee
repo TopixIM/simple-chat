@@ -1,6 +1,7 @@
 
 React = require 'react'
 socket = require '../resource/socket'
+storage = require '../resource/storage'
 
 $ = React.DOM
 
@@ -19,6 +20,14 @@ module.exports = React.createClass
   showSignup: ->
     @setState hasAccount: no, error: null
 
+  componentDidMount: ->
+    name = storage.get 'name'
+    password = storage.get 'password'
+    if name?
+      @refs.name.getDOMNode().value = name
+    if password?
+      @refs.password.getDOMNode().value = password
+
   login: ->
     @setState error: null
 
@@ -34,6 +43,8 @@ module.exports = React.createClass
 
     socket.send 'login', {name, password}, (resp) =>
       @setState error: resp.error
+    storage.set 'name', name
+    storage.set 'password', password
 
   signup: ->
     @setState error: null
@@ -54,8 +65,10 @@ module.exports = React.createClass
       console.log @state
       return
 
-    socket.send 'signup', {name, password, password2}, (resp) =>
+    socket.send 'signup', {name, password}, (resp) =>
       @setState error: resp.error
+    storage.set 'name', name
+    storage.set 'password', password
 
   render: ->
     $.div className: 'login-view',
