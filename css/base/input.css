@@ -1,9 +1,12 @@
 
 input {
     line-height: 25px;
-    margin-bottom: 14px;
     border-radius: 3px;
     border: 1px solid rgb(191, 221, 247);
     padding: 3px 8px;
     outline: none;
+}
+
+input:invalid {
+    border: 1px solid rgb(255, 92, 95);
 }

@@ -6,11 +6,11 @@
     padding: 2px 7px;
 }
 
-.label.be-error {
+.label.is-error {
     color: red;
 }
 
-.label.be-error:before {
+.label.is-error:before {
     content: '× ';
     background: rgb(210, 68, 68);
     width: 16px;

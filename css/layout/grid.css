@@ -1,0 +1,15 @@
+
+.grid-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.grid-row > * {
+    flex: 1;
+}
+
+.grid-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

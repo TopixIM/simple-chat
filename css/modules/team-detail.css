@@ -1,0 +1,8 @@
+
+.team-detail {
+    padding: 10px 20px;
+}
+
+.team-detail > .grid-row + .grid-row {
+    margin-top: 14px;
+}

@@ -9,7 +9,6 @@ module.exports = React.createClass
     $.div
       className: 'user-panel'
       $.div
-        className: 'user-avatar'
-        title: ''
+        className: 'avatar', title: @props.store
         style:
           backgroundImage: "url(#{@props.data.profile.avatar})"

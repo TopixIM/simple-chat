@@ -27,6 +27,10 @@ module.exports = React.createClass
       @refs.name.getDOMNode().value = name
     if password?
       @refs.password.getDOMNode().value = password
+    if name? and password?
+      setTimeout =>
+        @login()
+      , 400
 
   login: ->
     @setState error: null
@@ -82,7 +86,7 @@ module.exports = React.createClass
             $.input className: 'be-large', type: 'text', placeholder: 'Name', ref: 'name'
             $.input className: 'be-large', type: 'password', placeholder: 'Password', ref: 'password'
             if @state.error?
-              $.div className: 'label be-error',
+              $.div className: 'label is-error',
                 @state.error
             $.div className: 'button be-large', onClick: @login,
               'Log in'
@@ -97,7 +101,7 @@ module.exports = React.createClass
             $.input className: 'be-large', type: 'password', placeholder: 'Password', ref: 'password'
             $.input className: 'be-large', type: 'password', placeholder: 'Confirm password', ref: 'password2'
             if @state.error?
-              $.div className: 'label be-error',
+              $.div className: 'label is-error',
                 @state.error
             $.div
               className: 'button be-large'

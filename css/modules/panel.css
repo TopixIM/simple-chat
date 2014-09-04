@@ -17,4 +17,5 @@
 .panel > .content > input.be-large {
     width: 100%;
     display: block;
+    margin-bottom: 14px;
 }

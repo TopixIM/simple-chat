@@ -1,0 +1,8 @@
+
+.wrapper {}
+
+.wrapper > .main {
+    width: 100%;
+}
+
+.wrapper > .decoration {}

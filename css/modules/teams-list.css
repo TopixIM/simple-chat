@@ -1,0 +1,17 @@
+
+.teams-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.teams-list .titles {
+    padding: 20px;
+}
+
+.teams-list > .header {
+    line-height: 40px;
+}
+
+.teams-list > .grid-left-right {
+    flex: 1;
+}

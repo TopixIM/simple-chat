@@ -11,13 +11,21 @@ LoginViewComponent = require './login-view'
 module.exports = React.createClass
   displayName: 'app-view'
 
+  getInitialState: ->
+    isViewingList: yes
+
+  viewList: ->
+    @setState isViewingList: yes
+
   render: ->
     if @props.data.user?
       $.div
         className: 'app-view'
-        $$.if @props.data.teamId?,
-          => TeamComponent({})
-          => TeamsListComponent({})
-        UserPanelComponent(data: @props.data.user)
+        $$.if @state.isViewingList,
+          => TeamsListComponent
+            data: @props.data.teams
+            currentTeam: @props.data.teamId
+          => TeamComponent viewList: @viewList
+        UserPanelComponent data: @props.data.user
     else
       LoginViewComponent({})

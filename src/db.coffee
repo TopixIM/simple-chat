@@ -1,18 +1,26 @@
 
 fs = require 'fs'
 
-db = {}
+db =
+  user: undefined
+  teams: {}
+  rooms: {}
+  users: {}
+  messages: {}
 backupFile = 'src/backup.json'
 
 try
-  content = fs.readFileSync backupFile, 'utf8'
-  backup = JSON.parse content
-  if backup?
-    db = backup
+  do ->
+    content = fs.readFileSync backupFile, 'utf8'
+    for key, value of (JSON.parse content)
+      unless db[key]?
+        db[key] = value
 
-process.on 'exit', ->
+backup = ->
   content = JSON.stringify db, null, 2
   fs.writeFileSync backupFile, content
+
+process.on 'exit', backup
 
 exports.find = (name, query, cb) ->
   if db[name]?
@@ -24,7 +32,7 @@ exports.find = (name, query, cb) ->
       return yes
     cb results
   else
-    cb []
+    cb {}
 
 exports.findOne = (name, query, cb) ->
   if db[name]?
@@ -40,7 +48,18 @@ exports.findOne = (name, query, cb) ->
         return
   cb null
 
+exports.get = (name) ->
+  db[name]
+
 exports.add = (name, data) ->
-  unless db[name]?
-    db[name] = []
-  db[name].push data
+  unless db[name]? then db[name] = {}
+  db[name][data.id] = data
+  backup()
+
+exports.update = (name, data) ->
+  unless db[name]? then db[name] = {}
+  target = db[name][data.id]
+  for key, value of data
+    if target[key] isnt value
+      target[key] = value
+  backup()

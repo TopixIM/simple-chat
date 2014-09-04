@@ -4,15 +4,30 @@
 @import url('base/fonts.css');
 @import url('base/input.css');
 
+/* layout styles */
+@import url('layout/grid.css');
+
 /* module styles */
 @import url('modules/button.css');
+@import url('modules/header.css');
 @import url('modules/panel.css');
 @import url('modules/entry-text.css');
 @import url('modules/label.css');
+@import url('modules/avatar.css');
+@import url('modules/wrapper.css');
+
+/* app styles */
 
 @import url('modules/app-view.css');
+
+/* team styles */
+
+@import url('modules/teams-list.css');
 @import url('modules/team-view.css');
 @import url('modules/team-sidebar.css');
-@import url('modules/teams-list.css');
+@import url('modules/team-title.css');
+@import url('modules/team-detail.css');
+
+/* user style */
 @import url('modules/user-panel.css');
 @import url('modules/login-view.css');

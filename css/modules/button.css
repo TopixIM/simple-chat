@@ -3,14 +3,20 @@
     display: inline-block;
     background: rgb(195, 132, 253);
     color: white;
-    padding: 7px 7px;
+    padding: 5px 8px;
     border-radius: 5px;
     cursor: pointer;
     text-align: center;
+    line-height: 17px;
+    -webkit-user-select: none;
 }
 
 .button:hover {
     background: rgb(149, 115, 250);
+}
+
+.button:active {
+    transform: scale(1.1);
 }
 
 .button.be-large {
