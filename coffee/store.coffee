@@ -26,7 +26,10 @@ client.onload (ws) ->
         store.data[key][data.id] = data
       when 'delete'
         store.data[key] = null
-      when 'udpate'
+      when 'remove'
+        store.data[key][data] = null
+        delete store.data[key][data]
+      when 'update'
         store.data[key][data.id] = data
       else
         console.warn "unhandled action: #{action}"

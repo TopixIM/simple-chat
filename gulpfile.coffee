@@ -109,11 +109,16 @@ gulp.task 'vendor', ->
   browserify = require 'browserify'
   b = browserify debug: no
   b.require library for library in libraries
-  b.bundle()
+  jsbuffer = b.bundle()
   .pipe source('vendor.min.js')
   .pipe buffer()
-  .pipe uglify()
-  .pipe gulp.dest('dist/')
+  if dev
+    jsbuffer
+    .pipe gulp.dest('dist/')
+  else
+    jsbuffer
+    .pipe uglify()
+    .pipe gulp.dest('dist/')
 
 gulp.task 'prefixer', ->
   prefixer = require 'gulp-autoprefixer'

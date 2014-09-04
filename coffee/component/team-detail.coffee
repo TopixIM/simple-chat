@@ -21,12 +21,34 @@ module.exports = React.createClass
       return
     logo = @refs.logo.getDOMNode().value.trim()
     desc = @refs.desc.getDOMNode().value.trim()
-    if @props.currentTeam?
-      id = @props.currentTeam
-      socket.send 'update-team', {id, name, logo, desc}, (resp) =>
-        @setState actionError: resp.error
+    link = @refs.link.getDOMNode().value.trim()
+    if @props.data.id?
+      id = @props.data.id
+      socket.send 'update-team', {id, name, logo, desc, link}, (resp) =>
+        if resp.error?
+          @setState actionError: resp.error
+        else if resp.success then @props.endEditing()
     else
-      socket.send 'create-team', {name, logo, desc}
+      socket.send 'create-team', {name, logo, desc, link}, (resp) =>
+        if resp.success then @props.endEditing()
+
+  componentDidMount: ->
+    @fillInData()
+
+  componentDidUpdate: ->
+    console.log 'componentDidUpdate', @props.data
+    @fillInData()
+
+  fillInData: ->
+    data = @props.data
+    @refs.name.getDOMNode().value = data.name or ''
+    @refs.logo.getDOMNode().value = data.logo or ''
+    @refs.desc.getDOMNode().value = data.desc or ''
+    @refs.link.getDOMNode().value = data.link or ''
+
+  removeTeam: ->
+    socket.send 'remove-team', @props.data.id, (resp) =>
+      if resp.success then @props.endEditing()
 
   render: ->
     $.div className: 'team-detail',
@@ -47,5 +69,7 @@ module.exports = React.createClass
         $.input className: 'content', ref: 'link', placeholder: 'Link', type: 'url'
       $.div {},
         $.div className: 'button main', onClick: @publishTeam, 'Submit'
+        $$.if @props.data?.id?,
+          => $.div className: 'button is-danger', onClick: @removeTeam, 'Remove'
         $$.if @state.actionError?,
           => $.span className: 'label is-error', @state.actionError

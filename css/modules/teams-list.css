@@ -4,6 +4,10 @@
     flex-direction: column;
 }
 
+.teams-list .team-empty {
+    padding: 10px 20px;
+}
+
 .teams-list .titles {
     padding: 20px;
 }

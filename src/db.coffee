@@ -13,8 +13,7 @@ try
   do ->
     content = fs.readFileSync backupFile, 'utf8'
     for key, value of (JSON.parse content)
-      unless db[key]?
-        db[key] = value
+      db[key] = value
 
 backup = ->
   content = JSON.stringify db, null, 2
@@ -62,4 +61,10 @@ exports.update = (name, data) ->
   for key, value of data
     if target[key] isnt value
       target[key] = value
+  backup()
+
+exports.remove = (name, id) ->
+  unless db[name]? then db[name] = {}
+  db[name][id] = null
+  delete db[name][id]
   backup()

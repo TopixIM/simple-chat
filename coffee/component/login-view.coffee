@@ -46,7 +46,8 @@ module.exports = React.createClass
       return
 
     socket.send 'login', {name, password}, (resp) =>
-      @setState error: resp.error
+      if resp.error?
+        @setState error: resp.error
     storage.set 'name', name
     storage.set 'password', password
 

@@ -11,6 +11,10 @@
     -webkit-user-select: none;
 }
 
+.button + .button {
+    margin-left: 0.5em;
+}
+
 .button:hover {
     background: rgb(149, 115, 250);
 }
