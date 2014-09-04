@@ -7,7 +7,12 @@
     padding: 10px;
 }
 
+.user-panel > div + div {
+    margin-top: 1em;
+}
+
 .user-panel > .avatar {
     width: 60px;
     height: 60px;
+    cursor: pointer;
 }

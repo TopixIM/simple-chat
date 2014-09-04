@@ -7,3 +7,7 @@
 .entry-text:hover {
     color: rgb(143, 143, 255);
 }
+
+.entry-text.is-right {
+    float: right;
+}

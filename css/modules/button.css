@@ -11,6 +11,12 @@
     -webkit-user-select: none;
 }
 
+.button.is-fancy {
+    border-radius: 50%;
+    padding: 10px;
+    background: rgb(205, 171, 99);
+}
+
 .button + .button {
     margin-left: 0.5em;
 }

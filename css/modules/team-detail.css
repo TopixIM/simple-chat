@@ -1,6 +1,10 @@
 
 .team-detail {
-    padding: 10px 20px;
+    padding: 20px;
+}
+
+.team-detail > .header {
+    text-align: right;
 }
 
 .team-detail .entity {

@@ -27,10 +27,10 @@ module.exports = React.createClass
       socket.send 'update-team', {id, name, logo, desc, link}, (resp) =>
         if resp.error?
           @setState actionError: resp.error
-        else if resp.success then @props.endEditing()
+        else if resp.success then @endEditing()
     else
       socket.send 'create-team', {name, logo, desc, link}, (resp) =>
-        if resp.success then @props.endEditing()
+        if resp.success then @endEditing()
 
   componentDidMount: ->
     @fillInData()
@@ -47,10 +47,15 @@ module.exports = React.createClass
 
   removeTeam: ->
     socket.send 'remove-team', @props.data.id, (resp) =>
-      if resp.success then @props.endEditing()
+      if resp.success then @endEditing()
+
+  endEditing: ->
+    @props.endEditing()
 
   render: ->
     $.div className: 'team-detail',
+      $.div className: 'header',
+        $.span className: 'entry-text', onClick: @endEditing, 'Close'
       $.div className: 'grid-row',
         $.div className: 'entity', 'Name'
         $.div className: 'wrapper',

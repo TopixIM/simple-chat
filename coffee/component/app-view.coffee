@@ -3,7 +3,7 @@ React = require 'react'
 $ = React.DOM
 $$ = require '../utils/helper'
 
-TeamComponent = require './team-view'
+TeamViewComponent = require './team-view'
 TeamsListComponent = require './teams-list'
 UserPanelComponent = require './user-panel'
 LoginViewComponent = require './login-view'
@@ -25,7 +25,10 @@ module.exports = React.createClass
           => TeamsListComponent
             data: @props.data.teams
             currentTeam: @props.data.teamId
-          => TeamComponent viewList: @viewList
-        UserPanelComponent data: @props.data.user
+          => TeamViewComponent()
+        UserPanelComponent
+          data: @props.data.user
+          store: @props.data
+          viewList: @viewList
     else
       LoginViewComponent({})

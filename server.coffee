@@ -82,3 +82,8 @@ server.listen 3004, (ws) ->
     operateTeam 'teams', 'remove', id
 
   ws.on 'open-team', (id, res) ->
+
+  ws.on 'update-profile', (data, res) ->
+    db.update 'user', data
+    operate 'user', 'set', data
+    res success: yes

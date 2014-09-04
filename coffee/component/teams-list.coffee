@@ -24,21 +24,16 @@ module.exports = React.createClass
     @setState aboutTeam: null, newTeam: no
 
   render: ->
-    n = Object.keys(@props.data).length
-
-    $.div className: 'teams-list',
-      $.div className: 'header',
-        $.div className: 'teams-overview', "There are #{n} teams"
-        $.div className: 'grid-center',
+    $.div className: 'teams-list grid-row',
+      $.div className: 'titles',
+        $.div className: 'header', 'Current teams'
+        for key, team of @props.data
+          TeamTitleComponent data: team, introduceTeam: @introduceTeam, key: key
+        $.div className: 'actions',
           $.div className: 'button', onClick: @draftNewTeam, 'Create new team'
-      $.div className: 'grid-row',
-        $.div className: 'titles',
-          $.div className: 'header', 'Current teams'
-          for key, team of @props.data
-            TeamTitleComponent data: team, introduceTeam: @introduceTeam, key: key
-        $$.if @state.newTeam,
-          => TeamDetailComponent data: {}, endEditing: @endEditing
-          => $$.if @state.aboutTeam?,
-            => TeamDetailComponent data: @state.aboutTeam, endEditing: @endEditing
-            => $.div className: 'grid-center team-empty',
-              $.span {}, 'No team to preview'
+      $$.if @state.newTeam,
+        => TeamDetailComponent data: {}, endEditing: @endEditing
+        => $$.if @state.aboutTeam?,
+          => TeamDetailComponent data: @state.aboutTeam, endEditing: @endEditing
+          => $.div className: 'grid-center team-empty',
+            $.span {}, 'No team to preview'

@@ -1,0 +1,11 @@
+
+.profile-editor {}
+
+.profile-editor .grid-row {
+    margin: 10px 11px;
+}
+
+.profile-editor .grid-row > .entity {
+    max-width: 100px;
+    line-height: 31px;
+}

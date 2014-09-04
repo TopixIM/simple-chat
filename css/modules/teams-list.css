@@ -1,7 +1,5 @@
 
 .teams-list {
-    display: flex;
-    flex-direction: column;
 }
 
 .teams-list .team-empty {
@@ -10,6 +8,10 @@
 
 .teams-list .titles {
     padding: 20px;
+}
+
+.teams-list .titles .actions {
+    line-height: 30px;
 }
 
 .teams-list > .header {

@@ -15,6 +15,7 @@
 @import url('modules/label.css');
 @import url('modules/avatar.css');
 @import url('modules/wrapper.css');
+@import url('modules/light-box.css');
 
 /* app styles */
 
@@ -31,3 +32,4 @@
 /* user style */
 @import url('modules/user-panel.css');
 @import url('modules/login-view.css');
+@import url('modules/profile-editor.css');
