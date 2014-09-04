@@ -36,7 +36,6 @@ module.exports = React.createClass
     @fillInData()
 
   componentDidUpdate: ->
-    console.log 'componentDidUpdate', @props.data
     @fillInData()
 
   fillInData: ->

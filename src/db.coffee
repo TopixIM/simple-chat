@@ -24,11 +24,14 @@ process.on 'exit', backup
 exports.find = (name, query, cb) ->
   if db[name]?
     keys = Object.keys query
-    results = db[name].filter (record) ->
+    results = {}
+    for id, record of db[name]
+      matches = yes
       for key in keys
         if record[key] isnt query[key]
-          return no
-      return yes
+          matches = no
+          break
+      if matches then results[id] = record
     cb results
   else
     cb {}
@@ -36,7 +39,7 @@ exports.find = (name, query, cb) ->
 exports.findOne = (name, query, cb) ->
   if db[name]?
     keys = Object.keys query
-    for record in db[name]
+    for id, record of db[name]
       matches = yes
       for key in keys
         if record[key] isnt query[key]
@@ -53,6 +56,7 @@ exports.get = (name) ->
 exports.add = (name, data) ->
   unless db[name]? then db[name] = {}
   db[name][data.id] = data
+  console.log 'add', data, db
   backup()
 
 exports.update = (name, data) ->

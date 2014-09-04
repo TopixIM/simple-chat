@@ -9,10 +9,9 @@ store.data =
   rooms: {}
   users: {}
   messages: {}
-  user: undefined
-  teamId: undefined
-  roomId: undefined
-  contactId: undefined
+  user: null
+  teamId: null
+  roomId: null
 
 client.onload (ws) ->
   ws.on 'operate', (message) ->
@@ -25,9 +24,8 @@ client.onload (ws) ->
         unless store.data[key] then store.data[key] = {}
         store.data[key][data.id] = data
       when 'delete'
-        store.data[key] = null
+        delete store.data[key]
       when 'remove'
-        store.data[key][data] = null
         delete store.data[key][data]
       when 'update'
         store.data[key][data.id] = data
@@ -35,12 +33,3 @@ client.onload (ws) ->
         console.warn "unhandled action: #{action}"
         return
     store.emit()
-
-store.getData = ->
-  @data
-
-store.getState = ->
-  @data.state
-
-store.getUser = ->
-  @data.user
