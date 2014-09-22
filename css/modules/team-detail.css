@@ -11,6 +11,6 @@
     max-width: 200px;
 }
 
-.team-detail > .grid-row + .grid-row {
-    margin-top: 14px;
+.team-detail > .grid-row {
+    margin: 7px 0;
 }

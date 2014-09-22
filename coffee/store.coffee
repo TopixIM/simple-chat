@@ -16,7 +16,7 @@ store.data =
 client.onload (ws) ->
   ws.on 'operate', (message) ->
     {key, action, data} = message
-    console.log "operate: #{key}, #{action}:", data
+    console.log "~~>\t#{action}\t#{key}\t~~>", data
     switch action
       when 'set'
         store.data[key] = data

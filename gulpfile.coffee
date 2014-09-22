@@ -25,44 +25,29 @@ gulp.task 'folder', ->
 gulp.task 'watch', ->
   plumber = require 'gulp-plumber'
   coffee = require 'gulp-coffee'
-  reloader = require 'gulp-reloader'
   watch = require 'gulp-watch'
   html = require 'gulp-cirru-html'
   transform = require 'vinyl-transform'
   browserify = require 'browserify'
-  reloader.listen()
 
-  gulp
-  .src 'cirru/*'
-  .pipe watch()
-  .pipe plumber()
-  .pipe html(data: {dev: yes})
-  .pipe gulp.dest('./')
-  .pipe reloader(project)
+  watch glob: 'cirru/*', emitOnGlob: no, (files) ->
+    gulp
+    .src 'cirru/index/cirru'
+    .pipe plumber()
+    .pipe html(data: {dev: yes})
+    .pipe gulp.dest('./')
 
   watch glob: 'coffee/**/*.coffee', emitOnGlob: no, (files) ->
     files
-    .pipe plumber()
     .pipe (coffee bare: yes)
     .pipe (gulp.dest 'build/js/')
-
-  watch glob: 'build/js/**/*.js', emitOnGlob: no, (files) ->
-    gulp
-    .src './build/js/main.js'
-    .pipe plumber()
+    .pipe rename('main.js')
     .pipe transform (filename) ->
       b = browserify filename, debug: yes
       b.external library for library in libraries
       b.bundle()
     .pipe gulp.dest('build/')
-    .pipe reloader(project)
     return files
-
-  watch glob: ['server.coffee', 'src/**/*.coffee'], emitOnGlob: no, (files) ->
-    wait = require 'gulp-wait'
-    files
-    .pipe wait(800)
-    .pipe reloader(project)
 
 gulp.task 'js', ->
   browserify = require 'browserify'
